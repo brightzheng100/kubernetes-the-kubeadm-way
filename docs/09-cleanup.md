@@ -29,27 +29,20 @@ Delete the external load balancer network resources:
 }
 ```
 
-Delete the `kubernetes-the-hard-way` firewall rules:
+Delete the `kubernetes-the-kubeadm-way` firewall rules:
 
 ```sh
 gcloud -q compute firewall-rules delete \
   kubernetes-the-kubeadm-way-allow-nginx-service \
   kubernetes-the-kubeadm-way-allow-internal \
-  kubernetes-the-kubeadm-way-allow-external \
-  kubernetes-the-kubeadm-way-allow-health-check
+  kubernetes-the-kubeadm-way-allow-external
 ```
 
-Delete the `kubernetes-the-hard-way` network VPC:
+Delete the `kubernetes-the-kubeadm-way` network VPC:
 
 ```
 {
-  gcloud -q compute routes delete \
-    kubernetes-route-10-200-0-0-24 \
-    kubernetes-route-10-200-1-0-24 \
-    kubernetes-route-10-200-2-0-24
-
   gcloud -q compute networks subnets delete kubernetes
-
   gcloud -q compute networks delete kubernetes-the-kubeadm-way
 }
 ```
