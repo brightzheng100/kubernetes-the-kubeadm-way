@@ -1,6 +1,6 @@
 # Kubernetes the `Kubeadm` Way
 
-This turorial, inspired by Kelsey Hightower's [`kubernetes-the-hard-way`](https://github.com/kelseyhightower/kubernetes-the-hard-way), walks you through setting up highly available Kubernetes cluster by using `Kubeadm`, therefore `the Kubeadm way`.
+This tutorial, inspired by Kelsey Hightower's [`kubernetes-the-hard-way`](https://github.com/kelseyhightower/kubernetes-the-hard-way), walks you through setting up highly available Kubernetes cluster by using `Kubeadm`, therefore `the Kubeadm way`.
 
 `Google Cloud Platform` will be used as it's really handy for me.
 
@@ -14,9 +14,9 @@ The target audience for this tutorial is someone planning to build highly availa
 
 * OS: Ubuntu 18.04 LTS, 64bit
 * [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) v1.15.1
-* [Kubernetes](https://github.com/kubernetes/kubernetes) v1.15.1
+* [kubernetes](https://github.com/kubernetes/kubernetes) v1.15.1
 * [cri-o](https://github.com/cri-o/cri-o) v1.13.11-dev
-* [Canal](https://docs.projectcalico.org/v3.8/getting-started/kubernetes/installation/flannel) v3.8
+* [canal](https://docs.projectcalico.org/v3.8/getting-started/kubernetes/installation/flannel) v3.8
 
 
 ## Labs
