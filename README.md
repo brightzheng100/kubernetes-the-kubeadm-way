@@ -32,3 +32,4 @@ This tutorial assumes you have access to the [Google Cloud Platform](https://clo
 * [07-Configuring `kubectl` for Remote Access](docs/07-configure-kubectl.md)
 * [08-Performing Smoke Tests](docs/08-smoke-test.md)
 * [09-Cleaning Up](docs/09-cleanup.md)
+* [10-faq](docs/10-faq.md)
