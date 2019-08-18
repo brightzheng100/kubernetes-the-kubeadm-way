@@ -134,7 +134,7 @@ kubeadm join 35.247.46.244:6443 --token ivtu7b.kjfnq32mewyzz1cd \
 Verify it:
 
 ```
-$kubectl get no
+$ kubectl get no
 NAME               STATUS   ROLES    AGE   VERSION
 k8s-controller-0   Ready    master   62m   v1.15.1
 
@@ -218,6 +218,8 @@ sudo kubeadm join 35.247.46.244:6443 --token ivtu7b.kjfnq32mewyzz1cd \
     --discovery-token-ca-cert-hash sha256:4aec11ae9194ff0494ad3c54ad782ccf85001f17659cad8698b0bd8cf7f48032 \
     --control-plane --certificate-key 571b1177773d5209296e910155af31c4842ed3ae74bc78a210b54e36d17b9d29
 ```
+
+> Note: this command can be retrieved from the output while performing `kubeadm init` in `k8s-controller-0`.
 
 Similarly to the first Controller node:
 
