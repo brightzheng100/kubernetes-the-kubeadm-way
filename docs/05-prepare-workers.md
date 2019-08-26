@@ -85,11 +85,12 @@ As we use `cri-o`, we have to edit the config to make sure:
 2. and add this variable to `ExecStart`
 
 ```sh
-cat <<EOF | sudo tee vi /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+cat <<EOF | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 # Note: This dropin only works with kubeadm and kubelet v1.11+
 [Service]
 Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
-Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
+# edited by adding: --cloud-provider=gce --cloud-config=/etc/kubernetes/cloud-config
+Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml --cloud-provider=gce --cloud-config=/etc/kubernetes/cloud-config"
 # newly added
 Environment="KUBELET_CGROUP_ARGS=--cgroup-driver=systemd"
 # This is a file that "kubeadm init" and "kubeadm join" generates at runtime, populating the KUBELET_KUBEADM_ARGS variable dynamically
@@ -100,6 +101,17 @@ EnvironmentFile=-/etc/default/kubelet
 ExecStart=
 #ExecStart=/usr/bin/kubelet \$KUBELET_KUBECONFIG_ARGS \$KUBELET_CONFIG_ARGS \$KUBELET_KUBEADM_ARGS \$KUBELET_EXTRA_ARGS
 ExecStart=/usr/bin/kubelet \$KUBELET_KUBECONFIG_ARGS \$KUBELET_CONFIG_ARGS \$KUBELET_KUBEADM_ARGS \$KUBELET_EXTRA_ARGS \$KUBELET_CGROUP_ARGS
+EOF
+```
+
+And we need to add `cloud config` for our cloud provider, here is GCE:
+
+```sh
+PROJECT_ID=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/project/project-id)
+
+cat <<EOF | sudo tee /etc/kubernetes/cloud-config
+[Global]
+project-id = "${PROJECT_ID}"
 EOF
 ```
 
