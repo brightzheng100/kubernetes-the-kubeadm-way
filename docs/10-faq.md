@@ -47,7 +47,7 @@ The issue had been reported, [here](https://github.com/kubernetes/kubeadm/issues
 
 It's common to enable/disable features in a running cluster, after `kubeadm init`.
 
-So the typical steps would be:
+Let's take eanbling [Kubernetes Audit](https://kubernetes.io/docs/tasks/debug-application-cluster/audit/) as an example, the typical steps would be:
 
 1. Update `kubeadm-config.yaml`
 
@@ -71,7 +71,10 @@ networking:
 apiServer:
   extraArgs:
     enable-admission-plugins: NodeRestriction,PodSecurityPolicy
+    # newly added config
     feature-gates: "DynamicAuditing=true"
+    audit-dynamic-configuration: "true"
+    runtime-config: "auditregistration.k8s.io/v1alpha1=true"
 controllerManager:
   extraArgs:
     cloud-provider: gce
@@ -113,9 +116,13 @@ sudo kubeadm upgrade apply v1.15.3 \
     --cri-socket="/var/run/crio/crio.sock"
 ```
 
-3. Verify it (in a very raw way):
+3. Verify it
+
+In a very raw way:
 
 ```
 $ ps -ef|grep feature
 root     15406 15382  5 07:53 ?        00:00:34 kube-apiserver ... feature-gates=DynamicAuditing=true ...
 ```
+
+Or you can use Falco's [Helm Chart](https://github.com/helm/charts/blob/master/stable/falco/README.md) to try through -- this really works.
