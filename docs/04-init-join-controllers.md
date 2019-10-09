@@ -23,6 +23,18 @@ kubernetesVersion: stable
 controlPlaneEndpoint: "${KUBERNETES_PUBLIC_ADDRESS}:6443"
 networking:
   podSubnet: "${CLUSTER_CIDR}"
+apiServer:
+  extraArgs:
+    enable-admission-plugins: NodeRestriction,PodSecurityPolicy
+controllerManager:
+  extraArgs:
+    cloud-provider: gce
+    cloud-config: /etc/kubernetes/cloud
+  extraVolumes:
+  - name: cloud-config
+    hostPath: /etc/kubernetes/cloud-config
+    mountPath: /etc/kubernetes/cloud
+    pathType: FileOrCreate
 EOF
 
   sudo kubeadm init \
@@ -116,8 +128,9 @@ kubeadm join 35.247.46.244:6443 --token ivtu7b.kjfnq32mewyzz1cd \
 ```
 
 > Notes: 
-> 1. don't try to **hack** into this cluster as it's been shutdown immediately after this tutorial.
-> 2. use `sudo kubeadm reset --cri-socket="/var/run/crio/crio.sock"` to reset it if you want to do it again after fixes.
+> 1. don't try to **hack** into this cluster as it's been shutdown immediately after this tutorial;
+> 2. use `sudo kubeadm reset --cri-socket="/var/run/crio/crio.sock"` to reset it if you want to do it again after fixes;
+> 3. refer to [here](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/control-plane-flags/) if you want to customize `APIServer flags` and/or `ControllerManager flags` where are the right place to enable/disable features.
 
 ### Post Actions
 
