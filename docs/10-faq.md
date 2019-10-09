@@ -49,7 +49,7 @@ It's common to enable/disable features in a running cluster, after `kubeadm init
 
 Let's take eanbling [Kubernetes Audit](https://kubernetes.io/docs/tasks/debug-application-cluster/audit/) as an example, the typical steps would be:
 
-1. Update `kubeadm-config.yaml`
+**1. Update `kubeadm-config.yaml`**
 
 For example, in `k8s-controller-0`:
 
@@ -88,7 +88,7 @@ EOF
 }
 ```
 
-2. Apply it
+**2. Apply it**
 
 Do a dry-run first:
 
@@ -116,7 +116,7 @@ sudo kubeadm upgrade apply v1.15.3 \
     --cri-socket="/var/run/crio/crio.sock"
 ```
 
-3. Verify it
+**3. Verify it**
 
 In a very raw way:
 
