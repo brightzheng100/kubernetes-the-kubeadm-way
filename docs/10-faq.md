@@ -126,3 +126,23 @@ root     15406 15382  5 07:53 ?        00:00:34 kube-apiserver ... feature-gates
 ```
 
 Or you can use Falco's [Helm Chart](https://github.com/helm/charts/blob/master/stable/falco/README.md) to try through -- this really works.
+
+
+## Error: `failed to ensure load balancer` in Kubernetes on GCE
+
+If you want to expose your pods through `LoadBalancer`, like what [guestbook](https://kubernetes.io/docs/tutorials/stateless-application/guestbook/) example does, you may encounter issues on GCE:
+
+```
+$ kubectl describe svc frontend
+...
+Events:
+  Type     Reason                  Age   From                Message
+  ----     ------                  ----  ----                -------
+  Normal   EnsuringLoadBalancer    9s    service-controller  Ensuring load balancer
+  Warning  SyncLoadBalancerFailed  1s    service-controller  Error syncing load balancer: failed to ensure load balancer: no node tags supplied and also failed to parse the given lists of hosts for tags. Abort creating firewall rule
+```
+
+The message is super confusing!
+
+The solution is simple: make sure you've tagged each of you nodes with its `hostname`.
+For example, edit VM `k8s-worker-0` with a network tag named `k8s-worker-0`.
