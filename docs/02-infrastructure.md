@@ -118,7 +118,7 @@ for i in 0 1 2; do
     --private-network-ip 10.240.0.1${i} \
     --scopes compute-rw,storage-ro,service-management,service-control,logging-write,monitoring \
     --subnet kubernetes \
-    --tags kubernetes-the-kubeadm-way,controller
+    --tags kubernetes-the-kubeadm-way,controller,k8s-controller-${i}
 done
 ```
 
@@ -141,8 +141,11 @@ for i in 0 1 2; do
     --private-network-ip 10.240.0.2${i} \
     --scopes compute-rw,storage-ro,service-management,service-control,logging-write,monitoring \
     --subnet kubernetes \
-    --tags kubernetes-the-kubeadm-way,worker
+    --tags kubernetes-the-kubeadm-way,worker,k8s-worker-${i}
 done
 ```
+
+> Note: the tagging part is important, please refer to FAQ for why
+
 
 Next: [03-Preparing Controllers Before Running `kubeadm`](03-prepare-controllers.md)
